@@ -58,7 +58,24 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
+  window.addEventListener('keydown',function(e){
+    //console.log(e.keyCode); e is the object that contains all the data when the key is pressed
+    //console log to chrome to see what variables are returned. 
+    //now we need to look for an audio that has that particular keycode. query selector looks for 
+    //one thing on the page that matches. queryselectorall looks for multiple. in quotes, select the 'audio'
+    //element bc we're looking for that tag where the data-key is #. need attribute selector audio[data-key=65], but 
+    //also need the number, which is a variable that lives in the e event. 
+    //switch to backticks and use $ notation to pull it
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
 
+    //to make the animations, find the data-key = # in the class .key
+    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+    if(!audio) return;
+    //need to rewind it first, otherwise it will finish playing before starting
+    audio.currentTime = 0;
+    audio.play();
+    console.log(key);
+  });
 </script>
 
 

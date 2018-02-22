@@ -82,8 +82,33 @@
     //here we want to add our class 'playing', which is only defined in the CSS
     key.classList.add('playing');
 
-    console.log(keys);
+  
   });
+
+    //instead of function(e) in the window.addEventListener, you can put it as a standalone function and just call it
+    /*
+    function playSound (e) {
+      const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+      const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+      if(!audio) return;
+      audio.currentTime = 0;
+      audio.play();
+      key.classList.add('playing');
+    };
+    
+    window.addEventListener('keydown',playSound;*/
+
+    function removeTransition(e) {
+      //console.log(e);
+      //when you console log e, it will show every event that transitioned and ended. look at the properties
+      //and choose propertyname for any one. here we did it for "transform"
+      if(e.propertyName !== 'transform') return; //skip it if it's not a transform;
+      //console.log(e.propertyName) should only show the transform on the chrome console
+      //what is this? console log it. this is equal to the key on the div. It's equal to what got called against it
+      //i.e. down below in the key => key etc line
+      //remove the class from key when transitionend
+      this.classList.remove('playing');
+    }
     //just with key.classList.add('playing'), the transitions stay. Need to remove them when finished.
     //using querySelectorAll because we need to look at the transition on every key
     //console logging querySelectorAll('.key') gives an array of every element that is matched

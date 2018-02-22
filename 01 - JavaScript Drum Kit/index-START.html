@@ -70,12 +70,30 @@
 
     //to make the animations, find the data-key = # in the class .key
     const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+
     if(!audio) return;
     //need to rewind it first, otherwise it will finish playing before starting
     audio.currentTime = 0;
     audio.play();
-    console.log(key);
+
+    //key.classlist => classlist is a way to access an element's list of classes as a space delimited string 
+    //key.classlist.add -> adds the specified class values. If these classes already exist in attribute of 
+    //the element, then they are ignored
+    //here we want to add our class 'playing', which is only defined in the CSS
+    key.classList.add('playing');
+
+    console.log(keys);
   });
+    //just with key.classList.add('playing'), the transitions stay. Need to remove them when finished.
+    //using querySelectorAll because we need to look at the transition on every key
+    //console logging querySelectorAll('.key') gives an array of every element that is matched
+    const keys = document.querySelectorAll('.key');
+    
+    //need => and forEach because keys is an array, and we need to loop through all of them
+    //addEventListener can only do one at a time
+    //each key will get an event listener for the transition end, and execute function removeTransition
+    keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+
 </script>
 
 
